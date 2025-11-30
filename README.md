@@ -241,63 +241,8 @@ This forms a simple but effective closed-loop balance controller.
 
 4. HJB-Inspired Optimal Balance Control
 
-A value function representing tilt magnitude is defined as:
+<img width="672" height="539" alt="Screenshot (543)" src="https://github.com/user-attachments/assets/88d74139-850a-4edd-a1ac-da5fe7cee84a" />
 
-𝑉
-=
-∣
-roll
-∣
-+
-∣
-pitch
-∣
-V=∣roll∣+∣pitch∣
-
-The balance gain increases with tilt:
-
-𝐾
-bal
-=
-1
-+
-2
-𝑉
-K
-bal
-	​
-
-=1+2V
-
-Corrective ankle control is then scaled as:
-
-𝑞
-ankle
-∗
-=
-𝑞
-stand
-−
-𝐾
-bal
-⋅
-0.5
-⋅
-pitch
-q
-ankle
-∗
-	​
-
-=q
-stand
-	​
-
-−K
-bal
-	​
-
-⋅0.5⋅pitch
 
 This imitates an optimal feedback controller derived from Hamilton–Jacobi–Bellman principles.
 
