@@ -29,135 +29,45 @@ Below are the main control equations implemented in the system.
 
 1. Impedance Control (PD Model)
 
-Joint torques are computed using a spring–damper formulation:
 
-𝜏
-𝑖
-=
-𝐾
-𝑝
-(
-𝑞
-𝑖
-∗
-−
-𝑞
-𝑖
-)
-−
-𝐾
-𝑑
-𝑞
-˙
-𝑖
-τ
-i
-	​
-
-=K
-p
-	​
-
-(q
-i
-∗
-	​
-
-−q
-i
-	​
-
-)−K
-d
-	​
-
-q
-˙
-	​
-
-i
-	​
-
-
-Where:
-
-Symbol	Meaning
-
-𝑞
-𝑖
-∗
-q
-i
-∗
-	​
-
-	Desired joint angle
-
-𝑞
-𝑖
-q
-i
-	​
-
-	Actual joint angle
-
-𝑞
-˙
-𝑖
-q
-˙
-	​
-
-i
-	​
-
-	Joint velocity
-
-𝐾
-𝑝
-K
-p
-	​
-
-	Stiffness gain
-
-𝐾
-𝑑
-K
-d
-	​
-
-	Damping gain
-
-𝜏
-𝑖
-τ
-i
-	​
-
-	Torque applied to joint 
-𝑖
-i
-
-This forms the basic compliant control law for the humanoid.
 
 2. Admittance Control
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4eb251f2-4b27-4323-ac78-785330fe04c6" />
+
+
+<img width="348" height="165" alt="Screenshot (548)" src="https://github.com/user-attachments/assets/5de47135-e89a-4a36-b485-c6f2187351a3" />
+
+
+
 
 
 3. impedance control
-   <img width="720" height="235" alt="Screenshot (546)" src="https://github.com/user-attachments/assets/2bfbc3b3-ad17-4f15-812d-91d9477369c6" />
 
-4. Inverse kinematics
-   <img width="354" height="195" alt="Screenshot (547)" src="https://github.com/user-attachments/assets/93cec7cc-6173-43b6-8507-e28ef99c0867" />
 
+    <img width="720" height="235" alt="Screenshot (546)" src="https://github.com/user-attachments/assets/2bfbc3b3-ad17-4f15-812d-91d9477369c6" />
 
 
 
-6. HJB-Inspired Optimal Balance Control
+	
+
+5. Inverse kinematics
+
+
+
+    <img width="354" height="195" alt="Screenshot (547)" src="https://github.com/user-attachments/assets/93cec7cc-6173-43b6-8507-e28ef99c0867" />
+
+
+
+
+7. HJB-Inspired Optimal Balance Control
+
+
 
 <img width="672" height="539" alt="Screenshot (543)" src="https://github.com/user-attachments/assets/88d74139-850a-4edd-a1ac-da5fe7cee84a" />
+
+
+
+
 
 
 This imitates an optimal feedback controller derived from Hamilton–Jacobi–Bellman principles.
