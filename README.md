@@ -1,5 +1,7 @@
 humanoid_satoshi
 Humanoid Control in PyBullet — Impedance, Admittance, IK, and HJB-Based Control
+![20251201_000639](https://github.com/user-attachments/assets/502c36d2-133c-4c1e-8830-ec2f3e8fc686)
+
 
 This project implements full-body humanoid control in PyBullet using several control strategies, including impedance control, admittance control, procedural IK-style arm motions, and an HJB-inspired optimal balance method.
 The humanoid model is simulated as a floating-base URDF system with joint-torque actuation.
