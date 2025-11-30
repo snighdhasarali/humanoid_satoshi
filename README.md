@@ -1,33 +1,33 @@
-# humanoid_satoshi
+humanoid_satoshi
 Humanoid Control in PyBullet — Impedance, Admittance, IK, and HJB-Based Control
 
-This project implements full-body humanoid control in PyBullet using multiple control strategies including impedance control, admittance control, inverse-kinematics–style arm motions, and an HJB-inspired optimal balance method.
-The humanoid is simulated as a floating-base URDF model with active joint-torque control.
+This project implements full-body humanoid control in PyBullet using several control strategies, including impedance control, admittance control, procedural IK-style arm motions, and an HJB-inspired optimal balance method.
+The humanoid model is simulated as a floating-base URDF system with joint-torque actuation.
 
 Overview
 
-The objective of this project is to demonstrate fundamental and advanced control laws on a simulated humanoid model.
-The controller executes:
+The objective of this project is to demonstrate both fundamental and advanced humanoid control laws in a physics simulation environment.
+The controller performs the following:
 
 Standing balance control
 
 Walking gait generation
 
-Admittance response to virtual external forces
+Admittance-based reaction to virtual external forces
 
-Procedural IK-style arm movements
+Procedural inverse-kinematics–style arm motion
 
-HJB-inspired optimal balance computation
+HJB-inspired optimal balance control
 
-All demonstrations run sequentially and automatically.
+All demonstrations run sequentially.
 
-Control Theory Used
+Control Theory
 
-Below is a concise description of the control equations implemented in the simulation.
+Below are the main control equations implemented in the system.
 
-1. Impedance Control (Spring–Damper Model)
+1. Impedance Control (PD Model)
 
-Joint torques are computed using a proportional–derivative (PD) law:
+Joint torques are computed using a spring–damper formulation:
 
 𝜏
 𝑖
@@ -79,7 +79,7 @@ i
 
 Where:
 
-Variable	Meaning
+Symbol	Meaning
 
 𝑞
 𝑖
@@ -89,7 +89,7 @@ i
 ∗
 	​
 
-	Target joint angle
+	Desired joint angle
 
 𝑞
 𝑖
@@ -133,14 +133,15 @@ d
 i
 	​
 
-	Applied torque
+	Torque applied to joint 
+𝑖
+i
 
-This forms the core actuator model producing compliant, stable motion.
+This forms the basic compliant control law for the humanoid.
 
 2. Admittance Control
 
-In admittance control, external forces alter the commanded pose rather than creating torques directly.
-The simplified formulation used is:
+In admittance control, motion results from applied forces. The simplified form used is:
 
 Δ
 𝑞
@@ -169,10 +170,10 @@ F
 i
 	​
 
- is a virtual external force (e.g., wind, push)
+: Virtual external force (push, wind, etc.)
 
 𝛼
-α is the admittance gain
+α: Admittance gain
 
 Δ
 𝑞
@@ -181,13 +182,13 @@ i
 i
 	​
 
- is the displacement applied to the target pose
+: Adjustment added to target joint position
 
-This allows the humanoid to react mechanically to disturbances.
+This produces physically realistic reactions to disturbances.
 
 3. Balance Control Using Base Orientation
 
-Base roll and pitch, obtained from the floating base, are used to modify the ankle and hip joints to maintain upright posture.
+The humanoid’s floating base roll and pitch angles are used to modify hip and ankle joint targets:
 
 𝑞
 ankle
@@ -234,11 +235,11 @@ stand
 
 +0.2⋅pitch
 
-This acts as a basic whole-body balance controller.
+This forms a simple but effective closed-loop balance controller.
 
 4. HJB-Inspired Optimal Balance Control
 
-A simple approximation of a value function is used:
+A value function representing tilt magnitude is defined as:
 
 𝑉
 =
@@ -251,7 +252,7 @@ pitch
 ∣
 V=∣roll∣+∣pitch∣
 
-A balance gain that increases with tilt is computed as:
+The balance gain increases with tilt:
 
 𝐾
 bal
@@ -266,7 +267,7 @@ bal
 
 =1+2V
 
-The ankle and hip corrective torques are then scaled accordingly:
+Corrective ankle control is then scaled as:
 
 𝑞
 ankle
@@ -296,93 +297,89 @@ bal
 
 ⋅0.5⋅pitch
 
-This simulates an optimal feedback controller where control effort increases with estimated cost.
+This imitates an optimal feedback controller derived from Hamilton–Jacobi–Bellman principles.
 
-Humanoid Structure (Joint Overview)
+Humanoid Structure
 
-The humanoid used is the standard PyBullet URDF model:
+The PyBullet humanoid URDF contains the following conceptual structure:
 
-       Head
-        |
-      Torso
-     /     \
-  Shoulder Shoulder
-     |        |
-   Elbow     Elbow
-      \
-      Hips
-     /   \
-   Knee  Knee
-     |      |
-   Ankle   Ankle
+         Head
+          |
+        Torso
+     /         \
+  Shoulder   Shoulder
+      |          |
+    Elbow      Elbow
+        \
+        Hips
+      /      \
+   Knee      Knee
+     |          |
+   Ankle      Ankle
 
 
-All joints are automatically detected, and default PyBullet motors are disabled so that custom torque control can be applied.
+All joints are read at runtime, and default PyBullet motors are disabled so that custom torque commands can be applied.
 
-Demonstrations Implemented
+Demonstrations
 
-The simulation runs the following demonstrations sequentially:
+The simulation executes these demonstrations in sequence:
 
 1. Standing Balance
 
-The humanoid maintains upright posture using ankle and hip corrections combined with impedance joint control.
+Maintains upright posture using ankle and hip corrections plus impedance control.
 
 2. Walking Motion
 
-A periodic gait is generated using sinusoidal hip and knee profiles.
-Arm swing is added for natural movement.
-Balance control runs concurrently.
+Generates sinusoidal hip and knee trajectories, with natural arm swing.
+Balance control runs simultaneously.
 
 3. Admittance Response
 
-The humanoid responds to time-varying virtual external forces (e.g., simulated wind or pushes).
-The controller modifies the target pose according to the admittance law.
+Applies virtual external forces that cause the humanoid to sway or shift according to the admittance law.
 
-4. Arm Movement (IK-Style Pattern Generation)
+4. Arm Movement (IK-Style Motion)
 
-Procedural periodic shoulder and elbow motions generate expressive arm movements resembling IK-driven gestures.
+Shoulder and elbow joints move procedurally using periodic functions, approximating IK-driven gestures.
 
-5. HJB-Inspired Optimal Balance
+5. HJB-Inspired Balance
 
-A tilt-based value function is computed, and corrective control is increased during large disturbances.
+Implements tilt-dependent corrective control using the value function and scaled gain.
 
 How to Run the Simulation
 Requirements
 
-Install the required Python packages:
+Install the necessary packages:
 
 pip install pybullet numpy
 
-Running the Program
-
-Execute the main script:
-
+Running
 python3 humanoid_control.py
 
 
-A PyBullet GUI window will launch and run all demonstrations automatically.
+The PyBullet GUI will open and automatically run the demonstration sequence.
 
 File Structure
 HumanoidControl/
 │
-├── humanoid_control.py   # Main simulation file
-├── README.md             # Project documentation
-└── recordings/           # Optional: video output directory
+├── humanoid_control.py      # Main simulation script
+├── README.md                # Documentation
+└── recordings/              # Optional: mp4 recordings directory
 
 Code Summary
 
-The MovingHumanoid class performs the following:
+The MovingHumanoid class is responsible for:
 
-Initializes PyBullet environment and loads a floating-base humanoid
+Initializing the PyBullet environment
 
-Reads joint information and limits
+Loading the floating-base humanoid model
 
-Disables default velocity motors
+Detecting joints, limits, and disabling default motors
 
-Defines standing, walking, admittance, IK-style, and HJB-inspired controllers
+Implementing impedance, admittance, IK-style, and HJB-inspired control laws
 
-Executes each demonstration in sequence
+Running all demonstrations automatically
 
-Provides a clean disconnect from the physics engine
+Closing the simulation cleanly
 
-The controller design is modular, allowing further expansion into areas such as LQR, MPC, RL, or full HJB solutions.
+The design is modular and can be extended with control techniques such as LQR, MPC, reinforcement learning, or full HJB solvers.
+
