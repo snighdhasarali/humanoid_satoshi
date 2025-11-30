@@ -143,103 +143,19 @@ This forms the basic compliant control law for the humanoid.
 
 2. Admittance Control
 
-In admittance control, motion results from applied forces. The simplified form used is:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4eb251f2-4b27-4323-ac78-785330fe04c6" />
 
-Δ
-𝑞
-𝑖
-=
-𝛼
-𝐹
-𝑖
-Δ
-𝑡
-Δq
-i
-	​
 
-=αF
-i
-	​
+3. impedance control
+   <img width="720" height="235" alt="Screenshot (546)" src="https://github.com/user-attachments/assets/2bfbc3b3-ad17-4f15-812d-91d9477369c6" />
 
-Δt
+4. Inverse kinematics
+   <img width="354" height="195" alt="Screenshot (547)" src="https://github.com/user-attachments/assets/93cec7cc-6173-43b6-8507-e28ef99c0867" />
 
-Where:
 
-𝐹
-𝑖
-F
-i
-	​
 
-: Virtual external force (push, wind, etc.)
 
-𝛼
-α: Admittance gain
-
-Δ
-𝑞
-𝑖
-Δq
-i
-	​
-
-: Adjustment added to target joint position
-
-This produces physically realistic reactions to disturbances.
-
-3. Balance Control Using Base Orientation
-
-The humanoid’s floating base roll and pitch angles are used to modify hip and ankle joint targets:
-
-𝑞
-ankle
-∗
-=
-𝑞
-stand
-−
-0.5
-⋅
-pitch
-−
-0.3
-⋅
-roll
-q
-ankle
-∗
-	​
-
-=q
-stand
-	​
-
-−0.5⋅pitch−0.3⋅roll
-𝑞
-hip
-∗
-=
-𝑞
-stand
-+
-0.2
-⋅
-pitch
-q
-hip
-∗
-	​
-
-=q
-stand
-	​
-
-+0.2⋅pitch
-
-This forms a simple but effective closed-loop balance controller.
-
-4. HJB-Inspired Optimal Balance Control
+6. HJB-Inspired Optimal Balance Control
 
 <img width="672" height="539" alt="Screenshot (543)" src="https://github.com/user-attachments/assets/88d74139-850a-4edd-a1ac-da5fe7cee84a" />
 
